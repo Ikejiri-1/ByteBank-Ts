@@ -1,9 +1,12 @@
 import { Transacao } from "../types/transacao.js";
 import { TipoTransacao } from "../types/tipo-transacao.js";
-import Conta from "../types/conta";
+import SaldoComponent from "./saldo-component.js";
+import Conta from "../types/Conta.js";
+
 const elementoFormulario = document.querySelector(
   ".block-nova-transacao form"
 ) as HTMLFormElement;
+
 elementoFormulario.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!elementoFormulario.checkValidity()) {
@@ -32,6 +35,6 @@ elementoFormulario.addEventListener("submit", (e) => {
   };
 
   Conta.registrarTransacao(novaTransacao);
-  console.log(novaTransacao);
+  SaldoComponent.atualizar();
   elementoFormulario.reset();
 });

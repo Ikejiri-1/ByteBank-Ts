@@ -1,7 +1,6 @@
 import { formatarData, formatarSaldo } from "../utils/formatters.js";
 import { DataPadronizada } from "../types/data-padronizada.js";
-
-let saldo: number = 3000;
+import Conta from "../types/Conta.js";
 
 const elementoSaldo = document.querySelector(
   ".saldo-valor .valor"
@@ -12,19 +11,21 @@ const elementoDataDeAcesso = document.querySelector(
 ) as HTMLElement;
 
 if (elementoDataDeAcesso !== null) {
-  const dataAcesso: Date = new Date();
   elementoDataDeAcesso.textContent = formatarData(
-    dataAcesso,
+    Conta.getDataAcesso(),
     DataPadronizada.DIA_SEMANA_DIA_MES_ANO
   );
 }
-atualizarSaldo(saldo);
-export function getSaldo(): number {
-  return saldo;
-}
-export function atualizarSaldo(novoSaldo: number): void {
-  saldo = novoSaldo;
+renderizarSaldo();
+function renderizarSaldo(): void {
   if (elementoSaldo !== null) {
-    elementoSaldo.textContent = formatarSaldo(saldo);
+    elementoSaldo.textContent = formatarSaldo(Conta.getSaldo());
   }
 }
+const SaldoComponent = {
+  atualizar() {
+    renderizarSaldo();
+  },
+};
+
+export default SaldoComponent;

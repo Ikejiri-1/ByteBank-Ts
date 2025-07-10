@@ -24,6 +24,7 @@ const Conta = {
       alert("Tipo de Transação é inválido!");
       return;
     }
+    console.log(novaTransacao);
   },
 };
 
