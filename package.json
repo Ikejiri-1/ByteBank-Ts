@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "rimraf": "^6.0.1"
+  },
+  "scripts": {
+    "clean": "rimraf dist/js",
+    "build": "npm run clean && tsc"
+  }
+}
