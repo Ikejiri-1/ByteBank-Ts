@@ -18,7 +18,6 @@ export function formatarData(
     });
   } else if (padrao === DataPadronizada.DIA_MES) {
     return data.toLocaleDateString("pt-BR", {
-      year: "numeric",
       month: "2-digit",
       day: "2-digit",
     });

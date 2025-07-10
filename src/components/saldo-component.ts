@@ -10,7 +10,7 @@ const elementoDataDeAcesso = document.querySelector(
   ".block-saldo time"
 ) as HTMLElement;
 
-if (elementoDataDeAcesso !== null) {
+if (elementoDataDeAcesso) {
   elementoDataDeAcesso.textContent = formatarData(
     Conta.getDataAcesso(),
     DataPadronizada.DIA_SEMANA_DIA_MES_ANO
@@ -18,7 +18,7 @@ if (elementoDataDeAcesso !== null) {
 }
 renderizarSaldo();
 function renderizarSaldo(): void {
-  if (elementoSaldo !== null) {
+  if (elementoSaldo) {
     elementoSaldo.textContent = formatarSaldo(Conta.getSaldo());
   }
 }
