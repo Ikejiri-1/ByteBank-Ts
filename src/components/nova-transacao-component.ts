@@ -9,32 +9,37 @@ const elementoFormulario = document.querySelector(
 
 elementoFormulario.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (!elementoFormulario.checkValidity()) {
-    alert("Por favor, preencha todos os campos da transação!");
-    return;
+  try {
+    if (!elementoFormulario.checkValidity()) {
+      alert("Por favor, preencha todos os campos da transação!");
+      return;
+    }
+
+    const inputTipoTransacao = elementoFormulario.querySelector(
+      "#tipoTransacao"
+    ) as HTMLSelectElement;
+    const inputValor = elementoFormulario.querySelector(
+      "#valor"
+    ) as HTMLInputElement;
+    const inputData = elementoFormulario.querySelector(
+      "#data"
+    ) as HTMLInputElement;
+
+    let tipoTransacao: TipoTransacao =
+      inputTipoTransacao.value as TipoTransacao;
+    let valor: number = parseFloat(inputValor.value);
+    let data: Date = new Date(inputData.value);
+
+    const novaTransacao: Transacao = {
+      tipoTransacao: tipoTransacao,
+      valor: valor,
+      data: data,
+    };
+
+    Conta.registrarTransacao(novaTransacao);
+    SaldoComponent.atualizar();
+    elementoFormulario.reset();
+  } catch (error: any) {
+    alert("Erro ao registrar transação: " + error.message);
   }
-
-  const inputTipoTransacao = elementoFormulario.querySelector(
-    "#tipoTransacao"
-  ) as HTMLSelectElement;
-  const inputValor = elementoFormulario.querySelector(
-    "#valor"
-  ) as HTMLInputElement;
-  const inputData = elementoFormulario.querySelector(
-    "#data"
-  ) as HTMLInputElement;
-
-  let tipoTransacao: TipoTransacao = inputTipoTransacao.value as TipoTransacao;
-  let valor: number = parseFloat(inputValor.value);
-  let data: Date = new Date(inputData.value);
-
-  const novaTransacao: Transacao = {
-    tipoTransacao: tipoTransacao,
-    valor: valor,
-    data: data,
-  };
-
-  Conta.registrarTransacao(novaTransacao);
-  SaldoComponent.atualizar();
-  elementoFormulario.reset();
 });
