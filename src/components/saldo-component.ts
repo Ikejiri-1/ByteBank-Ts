@@ -6,16 +6,6 @@ const elementoSaldo = document.querySelector(
   ".saldo-valor .valor"
 ) as HTMLElement;
 
-const elementoDataDeAcesso = document.querySelector(
-  ".block-saldo time"
-) as HTMLElement;
-
-if (elementoDataDeAcesso) {
-  elementoDataDeAcesso.textContent = formatarData(
-    Conta.getDataAcesso(),
-    DataPadronizada.DIA_SEMANA_DIA_MES_ANO
-  );
-}
 renderizarSaldo();
 function renderizarSaldo(): void {
   if (elementoSaldo) {
