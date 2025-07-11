@@ -3,7 +3,6 @@ import { TipoTransacao } from "../types/tipo-transacao.js";
 import SaldoComponent from "./saldo-component.js";
 import Conta from "../types/Conta.js";
 import ExtratoComponent from "./extrato-component.js";
-import { DataPadronizada } from "../types/data-padronizada.js";
 
 const elementoFormulario = document.querySelector(
   ".block-nova-transacao form"
