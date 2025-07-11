@@ -76,6 +76,7 @@ const Conta = {
       novaTransacao.tipoTransacao == TipoTransacao.PagamentoBoleto
     ) {
       debitar(novaTransacao.valor);
+      novaTransacao.valor *= -1;
     } else {
       throw new Error("Tipo de Transação é inválido!");
     }
