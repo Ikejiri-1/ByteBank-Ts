@@ -1,49 +1,28 @@
 import { Transacao } from "./transacao.js";
-import { TipoTransacao } from "./tipo-transacao.js";
 import { GrupoTransacao } from "./GrupoTransacao.js";
+export class Conta {
+  nome: string;
+  saldo: number;
+  transacoes: Transacao[];
 
-let saldo: number = Number(JSON.parse(localStorage.getItem("saldo") || "0"));
+  constructor(nome: string) {
+    this.nome = nome;
 
-const transacoes: Transacao[] = JSON.parse(
-  localStorage.getItem("transacoes") || "[]",
-  (key: string, value: string) => {
-    if (key === "data") {
-      return new Date(value);
-    }
-    return value;
+    this.saldo = JSON.parse(localStorage.getItem("saldo") || "0");
+
+    this.transacoes = JSON.parse(
+      localStorage.getItem("transacoes") || "[]",
+      (key: string, value: any) => {
+        if (key === "data") {
+          return new Date(value);
+        }
+        return value;
+      }
+    );
   }
-);
-
-function debitar(valor: number): void {
-  if (valor <= 0) {
-    throw new Error("O valor a ser debitado deve ser maior que zero!");
-  }
-  if (valor > saldo) {
-    throw new Error("Saldo insuficiente!");
-  }
-  saldo -= valor;
-  localStorage.setItem("saldo", JSON.stringify(saldo));
-}
-function depositar(valor: number): void {
-  if (valor <= 0) {
-    throw new Error("O valor a ser depositado deve ser maior que zero!");
-  }
-  saldo += valor;
-  localStorage.setItem("saldo", JSON.stringify(saldo));
-}
-
-const Conta = {
-  getSaldo() {
-    return saldo;
-  },
-
-  getDataAcesso() {
-    return new Date();
-  },
-
   getGruposTransacoes(): GrupoTransacao[] {
     const gruposTransacoes: GrupoTransacao[] = [];
-    const listaTransacoes: Transacao[] = structuredClone(transacoes);
+    const listaTransacoes: Transacao[] = structuredClone(this.transacoes);
     const transacoesOrdenadas: Transacao[] = listaTransacoes.sort(
       (t1, t2) => t2.data.getTime() - t1.data.getTime()
     );
@@ -66,24 +45,5 @@ const Conta = {
       gruposTransacoes.at(-1)?.transacoes.push(transacao);
     }
     return gruposTransacoes;
-  },
-
-  registrarTransacao(novaTransacao: Transacao): void {
-    if (novaTransacao.tipoTransacao == TipoTransacao.Deposito) {
-      depositar(novaTransacao.valor);
-    } else if (
-      novaTransacao.tipoTransacao == TipoTransacao.Transferencia ||
-      novaTransacao.tipoTransacao == TipoTransacao.PagamentoBoleto
-    ) {
-      debitar(novaTransacao.valor);
-      novaTransacao.valor *= -1;
-    } else {
-      throw new Error("Tipo de Transação é inválido!");
-    }
-    transacoes.push(novaTransacao);
-    console.log(this.getGruposTransacoes());
-    localStorage.setItem("transacoes", JSON.stringify(transacoes));
-  },
-};
-
-export default Conta;
+  }
+}

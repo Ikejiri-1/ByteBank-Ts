@@ -1,7 +1,7 @@
 import { Transacao } from "../types/transacao.js";
 import { TipoTransacao } from "../types/tipo-transacao.js";
 import SaldoComponent from "./saldo-component.js";
-import Conta from "../types/Conta.js";
+import Conta from "../types/Conta-antiga.js";
 import ExtratoComponent from "./extrato-component.js";
 
 const elementoFormulario = document.querySelector(

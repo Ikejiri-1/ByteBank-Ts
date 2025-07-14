@@ -1,6 +1,6 @@
 import { formatarData, formatarSaldo } from "../utils/formatters.js";
 import { DataPadronizada } from "../types/data-padronizada.js";
-import Conta from "../types/Conta.js";
+import Conta from "../types/Conta-antiga.js";
 
 const elementoSaldo = document.querySelector(
   ".saldo-valor .valor"
