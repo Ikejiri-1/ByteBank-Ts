@@ -1,6 +1,6 @@
 export class Armazenador {
     constructor() { }
-    salvar(key, value) {
+    static salvar(key, value) {
         const valorComoString = JSON.stringify(value);
         localStorage.setItem(key, valorComoString);
     }

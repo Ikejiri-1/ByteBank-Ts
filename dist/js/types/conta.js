@@ -7,12 +7,13 @@ export class Conta {
     constructor(nome) {
         this.nome = nome;
         this.saldo = Armazenador.obter("saldo");
-        this.transacoes = JSON.parse(localStorage.getItem("transacoes") || "[]", (key, value) => {
-            if (key === "data") {
-                return new Date(value);
-            }
-            return value;
-        });
+        this.transacoes =
+            Armazenador.obter("transacoes", (key, value) => {
+                if (key === "data") {
+                    return new Date(value);
+                }
+                return value;
+            }) || [];
     }
     getTitular() {
         this.nome;
@@ -58,7 +59,7 @@ export class Conta {
         }
         this.transacoes.push(novaTransacao);
         console.log(this.getGruposTransacoes());
-        localStorage.setItem("transacoes", JSON.stringify(this.transacoes));
+        Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
     }
     debitar(valor) {
         if (valor <= 0) {
@@ -68,14 +69,14 @@ export class Conta {
             throw new Error("Saldo insuficiente!");
         }
         this.saldo -= valor;
-        localStorage.setItem("saldo", JSON.stringify(this.saldo));
+        Armazenador.salvar("saldo", JSON.stringify(this.saldo));
     }
     depositar(valor) {
         if (valor <= 0) {
             throw new Error("O valor a ser depositado deve ser maior que zero!");
         }
         this.saldo += valor;
-        localStorage.setItem("saldo", JSON.stringify(this.saldo));
+        Armazenador.salvar("saldo", JSON.stringify(this.saldo));
     }
 }
 const conta = new Conta("Joana da Silva Oliveira");
