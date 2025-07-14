@@ -1,4 +1,4 @@
-import Conta from "../types/Conta-antiga.js";
+import Conta from "../types/Conta.js";
 import { GrupoTransacao } from "../types/GrupoTransacao.js";
 import { formatarData, formatarSaldo } from "../utils/formatters.js";
 const elementoRegistroTransacoesExtrato: HTMLElement = document.querySelector(

@@ -1,5 +1,5 @@
 import { formatarSaldo } from "../utils/formatters.js";
-import Conta from "../types/Conta.js";
+import Conta from "../types/Conta-antiga.js";
 const elementoSaldo = document.querySelector(".saldo-valor .valor");
 renderizarSaldo();
 function renderizarSaldo() {
