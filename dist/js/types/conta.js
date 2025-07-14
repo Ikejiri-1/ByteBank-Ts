@@ -6,7 +6,7 @@ export class Conta {
     transacoes;
     constructor(nome) {
         this.nome = nome;
-        this.saldo = Armazenador.obter("saldo");
+        this.saldo = Armazenador.obter("saldo") ?? 0;
         this.transacoes =
             Armazenador.obter("transacoes", (key, value) => {
                 if (key === "data") {

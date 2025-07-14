@@ -10,15 +10,18 @@ export class Conta {
   constructor(nome: string) {
     this.nome = nome;
 
-    this.saldo = Armazenador.obter("saldo");
+    this.saldo = Armazenador.obter<number>("saldo") ?? 0;
 
     this.transacoes =
-      Armazenador.obter("transacoes", (key: string, value: any) => {
-        if (key === "data") {
-          return new Date(value);
+      Armazenador.obter<Transacao[]>(
+        "transacoes",
+        (key: string, value: any) => {
+          if (key === "data") {
+            return new Date(value);
+          }
+          return value;
         }
-        return value;
-      }) || [];
+      ) || [];
   }
   public getTitular() {
     this.nome;
@@ -72,6 +75,7 @@ export class Conta {
     console.log(this.getGruposTransacoes());
     Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
   }
+
   private debitar(valor: number): void {
     if (valor <= 0) {
       throw new Error("O valor a ser debitado deve ser maior que zero!");
