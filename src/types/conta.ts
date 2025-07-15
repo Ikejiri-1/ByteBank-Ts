@@ -30,7 +30,9 @@ export class Conta {
 
   getGruposTransacoes(): GrupoTransacao[] {
     const gruposTransacoes: GrupoTransacao[] = [];
+
     const listaTransacoes: Transacao[] = structuredClone(this.transacoes);
+    console.log(typeof listaTransacoes);
     const transacoesOrdenadas: Transacao[] = listaTransacoes.sort(
       (t1, t2) => t2.data.getTime() - t1.data.getTime()
     );
@@ -74,18 +76,18 @@ export class Conta {
     }
     this.transacoes.push(novaTransacao);
     console.log(this.getGruposTransacoes());
-    Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
+    Armazenador.salvar("transacoes", this.transacoes);
   }
 
   @ValidarDebito
   private debitar(valor: number): void {
     this.saldo -= valor;
-    Armazenador.salvar("saldo", JSON.stringify(this.saldo));
+    Armazenador.salvar("saldo", this.saldo);
   }
   @ValidarDeposito
   private depositar(valor: number): void {
     this.saldo += valor;
-    Armazenador.salvar("saldo", JSON.stringify(this.saldo));
+    Armazenador.salvar("saldo", this.saldo);
   }
 }
 

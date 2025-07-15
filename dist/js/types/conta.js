@@ -28,6 +28,7 @@ export class Conta {
     getGruposTransacoes() {
         const gruposTransacoes = [];
         const listaTransacoes = structuredClone(this.transacoes);
+        console.log(typeof listaTransacoes);
         const transacoesOrdenadas = listaTransacoes.sort((t1, t2) => t2.data.getTime() - t1.data.getTime());
         let labelAtualGrupoTransacao = "";
         for (let transacao of transacoesOrdenadas) {
@@ -66,15 +67,15 @@ export class Conta {
         }
         this.transacoes.push(novaTransacao);
         console.log(this.getGruposTransacoes());
-        Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
+        Armazenador.salvar("transacoes", this.transacoes);
     }
     debitar(valor) {
         this.saldo -= valor;
-        Armazenador.salvar("saldo", JSON.stringify(this.saldo));
+        Armazenador.salvar("saldo", this.saldo);
     }
     depositar(valor) {
         this.saldo += valor;
-        Armazenador.salvar("saldo", JSON.stringify(this.saldo));
+        Armazenador.salvar("saldo", this.saldo);
     }
 }
 __decorate([
